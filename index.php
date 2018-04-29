@@ -4,80 +4,7 @@ $is_auth = (bool) rand(0, 1);
 $user_name = 'Константин';
 $user_avatar = 'img/user.jpg';
 ?>
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Главная</title>
-    <link href="css/normalize.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-</head>
-<body>
-
-<header class="main-header">
-    <div class="main-header__container container">
-        <h1 class="visually-hidden">YetiCave</h1>
-        <a class="main-header__logo">
-            <img src="img/logo.svg" width="160" height="39" alt="Логотип компании YetiCave">
-        </a>
-        <form class="main-header__search" method="get" action="https://echo.htmlacademy.ru">
-            <input type="search" name="search" placeholder="Поиск лота">
-            <input class="main-header__search-btn" type="submit" name="find" value="Найти">
-        </form>
-        <a class="main-header__add-lot button" href="add-lot.html">Добавить лот</a>
-
-        <nav class="user-menu">
-
-        <!-- здесь должен быть PHP код для показа аватара пользователя -->
-        <?php if ($is_auth = rand(0, 1)): ?>
-                <div class="user-menu__image">
-                    <img src="img/user.jpg" width="40" height="40" alt="Пользователь">
-                </div>
-                <div class="user-menu__logged">
-                    <p>Константин</p>
-                </div>
-        <?php else: ?>
-                <ul class="user-menu__list">
-                    <li class="user-menu__item">
-                        <a href="#">Регистрация</a>
-                    </li>
-                    <li class="user-menu__item">
-                        <a href="#">Вход</a>
-                    </li>
-                </ul>
-            <?php endif; ?>
-
-        </nav>
-    </div>
-</header>
-
-<main class="container">
-    <section class="promo">
-        <h2 class="promo__title">Нужен стафф для катки?</h2>
-        <p class="promo__text">На нашем интернет-аукционе ты найдёшь самое эксклюзивное сноубордическое и горнолыжное снаряжение.</p>
-        <ul class="promo__list">
-            <li class="promo__item promo__item--boards">
-                <a class="promo__link" href="all-lots.html">Доски и лыжи</a>
-            </li>
-            <li class="promo__item promo__item--attachment">
-                <a class="promo__link" href="all-lots.html">Крепления</a>
-            </li>
-            <li class="promo__item promo__item--boots">
-                <a class="promo__link" href="all-lots.html">Ботинки</a>
-            </li>
-            <li class="promo__item promo__item--clothing">
-                <a class="promo__link" href="all-lots.html">Одежда</a>
-            </li>
-            <li class="promo__item promo__item--tools">
-                <a class="promo__link" href="all-lots.html">Инструменты</a>
-            </li>
-            <li class="promo__item promo__item--other">
-                <a class="promo__link" href="all-lots.html">Разное</a>
-            </li>
-        </ul>
-    </section>
-
-    <?php
+<?php
         $categories = [
                 "Доски и лыжи", 
                 "Крепления", 
@@ -130,7 +57,77 @@ $user_avatar = 'img/user.jpg';
             ]
         ]
     ?>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная</title>
+    <link href="css/normalize.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
 
+<header class="main-header">
+    <div class="main-header__container container">
+        <h1 class="visually-hidden">YetiCave</h1>
+        <a class="main-header__logo">
+            <img src="img/logo.svg" width="160" height="39" alt="Логотип компании YetiCave">
+        </a>
+        <form class="main-header__search" method="get" action="https://echo.htmlacademy.ru">
+            <input type="search" name="search" placeholder="Поиск лота">
+            <input class="main-header__search-btn" type="submit" name="find" value="Найти">
+        </form>
+        <a class="main-header__add-lot button" href="add-lot.html">Добавить лот</a>
+
+        <nav class="user-menu">
+
+        <?php if ($is_auth): ?>
+                <div class="user-menu__image">
+                    <img src="<?=$user_avatar; ?>" width="40" height="40" alt="Пользователь">
+                </div>
+                <div class="user-menu__logged">
+                    <p><?=$user_name; ?></p>
+                </div>
+        <?php else: ?>
+                <ul class="user-menu__list">
+                    <li class="user-menu__item">
+                        <a href="#">Регистрация</a>
+                    </li>
+                    <li class="user-menu__item">
+                        <a href="#">Вход</a>
+                    </li>
+                </ul>
+            <?php endif; ?>
+
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+    <section class="promo">
+        <h2 class="promo__title">Нужен стафф для катки?</h2>
+        <p class="promo__text">На нашем интернет-аукционе ты найдёшь самое эксклюзивное сноубордическое и горнолыжное снаряжение.</p>
+        <ul class="promo__list">
+            <li class="promo__item promo__item--boards">
+                <a class="promo__link" href="all-lots.html">Доски и лыжи</a>
+            </li>
+            <li class="promo__item promo__item--attachment">
+                <a class="promo__link" href="all-lots.html">Крепления</a>
+            </li>
+            <li class="promo__item promo__item--boots">
+                <a class="promo__link" href="all-lots.html">Ботинки</a>
+            </li>
+            <li class="promo__item promo__item--clothing">
+                <a class="promo__link" href="all-lots.html">Одежда</a>
+            </li>
+            <li class="promo__item promo__item--tools">
+                <a class="promo__link" href="all-lots.html">Инструменты</a>
+            </li>
+            <li class="promo__item promo__item--other">
+                <a class="promo__link" href="all-lots.html">Разное</a>
+            </li>
+        </ul>
+    </section>
     <section class="lots">
         <div class="lots__header">
             <h2>Открытые лоты</h2>
@@ -166,6 +163,7 @@ $user_avatar = 'img/user.jpg';
             <?php foreach ($categories as $item): ?>
             <li class="nav__item">
                 <a href="all-lots"><?=$item; ?></a>
+            </li>
         <?php endforeach; ?>
         </ul>
     </nav>
