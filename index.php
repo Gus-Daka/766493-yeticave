@@ -29,7 +29,7 @@ $user_avatar = 'img/user.jpg';
         <nav class="user-menu">
 
         <?php if ($is_auth = rand(0, 1)): ?>
-                <div class="user-menu_image">
+                <div class="user-menu__image">
                     <img src="img/user.jpg" width="40" height="40" alt="Пользователь">
                 </div>
                 <div class="user-menu__logged">
