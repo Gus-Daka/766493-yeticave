@@ -3,9 +3,8 @@ $is_auth = (bool) rand(0, 1);
 
 $user_name = 'Константин';
 $user_avatar = 'img/user.jpg';
-?>
-<?php
-        $categories = [
+
+$categories = [
                 "Доски и лыжи", 
                 "Крепления", 
                 "Ботинки",
@@ -15,10 +14,8 @@ $user_avatar = 'img/user.jpg';
         ];
         $index = 0;
         $num_count = count($categories);
-    ?>
 
-    <?php
-        $openlots = [
+$openlots = [
             [
                 "name" => "2014 Rossignol District Snowboard",
                 "category" => "Доски и лыжи",
@@ -56,7 +53,7 @@ $user_avatar = 'img/user.jpg';
                 "url" => "img/lot-6.jpg"
             ]
         ]
-    ?>
+?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
