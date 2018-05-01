@@ -5,12 +5,12 @@ $user_name = 'Константин';
 $user_avatar = 'img/user.jpg';
 
 $categories = [
-        "Доски и лыжи", 
-        "Крепления", 
-        "Ботинки",
-        "Одежда", 
-        "Инструменты", 
-        "Разное"
+    "Доски и лыжи", 
+    "Крепления", 
+    "Ботинки",
+    "Одежда", 
+    "Инструменты", 
+    "Разное"
 ];
 
 $openlots = [
@@ -51,7 +51,13 @@ $openlots = [
         "url" => "img/lot-6.jpg"
     ]
 ];
+
+function rurNumberFormat(int $price) {
+    return number_format($price, 0, '.', ' ') . '<b class="rub">р</b>';
+}
+
 ?>
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -139,7 +145,7 @@ $openlots = [
                     <div class="lot__state">
                         <div class="lot__rate">
                             <span class="lot__amount">Стартовая цена</span>
-                            <span class="lot__cost"><?=$item['price']; ?><b class="rub">р</b></span>
+                            <span class="lot__cost"><?=rurNumberFormat($item['price']); ?></span>
                         </div>
                         <div class="lot__timer timer">
 
