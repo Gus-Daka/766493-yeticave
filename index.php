@@ -1,7 +1,6 @@
 <?php
 
-//require_once 'tamplates/index.php';
-//require_once 'templates/layout.php';
+require_once('functions.php');
 
 $is_auth = (bool) rand(0, 1);
 
@@ -55,12 +54,6 @@ $openlots = [
         "url" => "img/lot-6.jpg"
     ]
 ];
-
-function rurNumberFormat(int $price) {
-    return number_format($price, 0, '.', ' ') . '<b class="rub">р</b>';
-}
-
-require_once('functions.php');
 
 $page_content = renderTemplate('templates/index.php', [
     'openlots' => $openlots 

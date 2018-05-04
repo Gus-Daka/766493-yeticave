@@ -1,15 +1,18 @@
 <?php 
-function renderTemplate($templatePath, $templateData) {
+function renderTemplate($tpath, $tdata) {
  	$content = '';
- 	extract($templateData);
 
- if (file_exists($templatePath)) {
+ if (file_exists($tpath)) {
   	ob_start();
-  	require($templatePath);
-  	$content = ob_get_contents();
-  	ob_end_clean();
+  	extract($tdata);
+  	require($tpath);
+  	$content = ob_get_clean();
  }
 
  return $content;
+}
+
+function rurNumberFormat(int $price) {
+    return number_format($price, 0, '.', ' ') . '<b class="rub">р</b>';
 }
 ?>
