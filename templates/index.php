@@ -42,7 +42,7 @@
                             <span class="lot__cost"><?=rurNumberFormat($item['price']); ?></span>
                         </div>
                         <div class="lot__timer timer">
-
+                            <?=date('h:i', strtotime($get_time)); ?>
                         </div>
                     </div>
                 </div>
