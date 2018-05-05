@@ -29,7 +29,7 @@ function timeToFinish() {
 	$time_minutes = floor(($day % 3600) / 60);
 	$get_time = $time_hours . ':' . $time_minutes;
 
-	return date('h:i', strtotime($get_time));
+	return date('H:i', strtotime($get_time));
 }
 
 ?>
