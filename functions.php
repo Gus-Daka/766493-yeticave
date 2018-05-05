@@ -21,14 +21,16 @@ function rurNumberFormat(int $price) {
 date_default_timezone_set("Europe/Moscow");
 
 //функция показывает, сколько осталось до назначенной даты и времени
-$time_tommorow = strtotime('tomorrow');
-$time_lot = $time_tommorow - time();
+function timeToFinish() {
+	$data = '06.05.2018 00.00';
+	$time = strtotime($data);
+	$today = time();
+	$day = $time - $today;
+	$time_hours = floor($day / 3600);
+	$time_minutes = floor(($day % 3600) / 60);
+	$get_time = $time_hours . ':' . $time_minutes;
 
-$time_hours = floor($time_lot / 3600);
-$time_minutes = floor(($time_lot % 3600) / 60);
-
-$get_time = $time_hours . ':' . $time_minutes;
-
-return date('h:i', strtotime($get_time));
+	return date('h:i', strtotime($get_time));
+}
 
 ?>
