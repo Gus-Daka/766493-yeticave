@@ -22,8 +22,7 @@ date_default_timezone_set("Europe/Moscow");
 
 //функция показывает, сколько осталось до назначенной даты и времени
 function timeToFinish() {
-	$data = '06.05.2018 00.00';
-	$time = strtotime($data);
+	$time = strtotime('tomorrow');
 	$today = time();
 	$day = $time - $today;
 	$time_hours = floor($day / 3600);
