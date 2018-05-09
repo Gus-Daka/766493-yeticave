@@ -8,7 +8,7 @@ CREATE TABLE category (
 
 CREATE TABLE lots (
   id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  created_at int(11),
+  created_at datetime,
   category_id int(10) UNSIGNED,
   user_id int(10) UNSIGNED,
   rate_win_id int(10) UNSIGNED,
@@ -24,14 +24,14 @@ CREATE TABLE rate (
   id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   user_id int(10) UNSIGNED,
   lot_id int(10) UNSIGNED,
-  rate_date int(11),
+  rate_date datetime,
   rate_price int(10) NOT NULL,
   rate_win_id int(10)
 );
 
 CREATE TABLE users (
   id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  reg_date int(11) NOT NULL,
+  reg_date datetime NOT NULL,
   email varchar(255) NOT NULL,
   user_name varchar(225) NOT NULL,
   password varchar(64) NOT NULL,
