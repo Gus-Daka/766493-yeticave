@@ -14,7 +14,7 @@ $sql = 'SELECT lot_name, start_price, lot_image, rate_price, rate.id, cat_name
 FROM lots
 LEFT JOIN rate ON lots.id = rate.id
 LEFT JOIN category ON lots.id = category.id
-WHERE lots.created_at ORDER BY id DESC';
+WHERE lots.created_at ORDER BY created_at ASC';
 
 if($res = mysqli_query($link, $sql)) {
     $lots = mysqli_fetch_all($res, MYSQLI_ASSOC);
@@ -42,13 +42,5 @@ $layout_content = renderTemplate('templates/layout.php', [
 ]);
 
 print($layout_content);
-
-print include_tamplate('templates/layout.php', 
-    ['title' => 'Главная', 
-    'is_auth' => $is_auth,
-    'user_name' => $user_name,
-    'user_avatar' => $user_avatar,
-    'content' => $page_content,
-    'categories' => $categories]);
 
 ?>
