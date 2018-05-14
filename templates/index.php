@@ -28,18 +28,18 @@
             <h2>Открытые лоты</h2>
         </div>
         <ul class="lots__list">
-            <?php foreach ($openlots as $key => $item): ?>
+            <?php foreach ($lots as $lot): ?>
             <li class="lots__item lot">
                 <div class="lot__image">
-                    <img src="<?=$item['url']; ?>" width="350" height="260" alt="">
+                    <img src="<?=$lot['lot_image']; ?>" width="350" height="260" alt="">
                 </div>
                 <div class="lot__info">
-                    <span class="lot__category"><?=$item['category']; ?></span>
-                    <h3 class="lot__title"><a class="text-link" href="lot.html"><?=htmlspecialchars($item['name']); ?></a></h3>
+                    <span class="lot__category"><?=$lot['category_id']; ?></span>
+                    <h3 class="lot__title"><a class="text-link" href="lot.html"><?=htmlspecialchars($lot['lot_name']); ?></a></h3>
                     <div class="lot__state">
                         <div class="lot__rate">
                             <span class="lot__amount">Стартовая цена</span>
-                            <span class="lot__cost"><?=rurNumberFormat($item['price']); ?></span>
+                            <span class="lot__cost"><?=rurNumberFormat($lot['start_price']); ?></span>
                         </div>
                         <div class="lot__timer timer">
                             <?=timeToFinish(); ?>
