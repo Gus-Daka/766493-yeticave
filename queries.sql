@@ -36,17 +36,11 @@ VALUES	(1, 2, '2018-05-05', 165000),
 
 SELECT * FROM category; /* Получить все категории */
 
-SELECT lot_name, start_price, lot_image, rate_price, rate.id, cat_name 
+SELECT lots.id, lot_name, start_price, lot_image, rate_price, rate.lot_id, cat_name 
 FROM lots
-LEFT JOIN rate ON lots.id = rate.id
+LEFT JOIN rate ON lots.id = rate.lot_id
 LEFT JOIN category ON lots.id = category.id
-WHERE lots.created_at ORDER BY id DESC; /* получить самые новые, открытые лоты.  */
-
-SELECT lot_name, start_price, lot_image, rate_price, rate.id, cat_name 
-FROM lots
-LEFT JOIN rate ON lots.id = rate.id
-LEFT JOIN category ON lots.id = category.id
-WHERE ORDER BY created_at ASC;
+WHERE lots.created_at ORDER BY lots.created_at ASC /* получить самые новые, открытые лоты.  */
 
 SELECT lots.id, cat_name FROM lots
 LEFT JOIN category

@@ -1,36 +1,42 @@
 <?php
+//подключаем шаблонизатор
+require_once('functions.php');
 
 $link = mysqli_connect('localhost', 'root', 'Daka242347', 'yeticave');
 
-$sql = 'SELECT id, cat_name FROM category';
+if(!$link) {
+    $sql_error = mysqli_connect_error();
+    print('Ошибка подключения к БД: ' . $sql_error);
+} else {
 
-$result = mysqli_query($link, $sql);
+    $sql = "SELECT cat_name FROM category
+            ORDER BY id";
 
-if($result) {
-    $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    $result = mysqli_query($link, $sql);
+    $categories = [];
+
+    if($result) {
+    $cats = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    foreach ($cats as $cat) {
+        $categories[] = $cat['cat_name'];
+    }
 }
+    $sql = "SELECT lots.id, lot_name, start_price, lot_image, rate_price, rate.lot_id, cat_name 
+        FROM lots
+        LEFT JOIN rate ON lots.id = rate.lot_id
+        LEFT JOIN category ON lots.id = category.id
+        WHERE lots.created_at ORDER BY lots.created_at ASC";
 
-$sql = 'SELECT lot_name, start_price, lot_image, rate_price, rate.id, cat_name 
-FROM lots
-LEFT JOIN rate ON lots.id = rate.id
-LEFT JOIN category ON lots.id = category.id
-WHERE lots.created_at ORDER BY created_at ASC';
-
-if($res = mysqli_query($link, $sql)) {
-    $lots = mysqli_fetch_all($res, MYSQLI_ASSOC);
+    if($res = mysqli_query($link, $sql)) {
+        $lots = mysqli_fetch_all($res, MYSQLI_ASSOC);
+        $page_content = renderTemplate('templates/index.php', ['lots' => $lots]);
+    }
 }
-
-//подключаем шаблонизатор
-require_once('functions.php');
 
 $is_auth = (bool) rand(0, 1);
 
 $user_name = 'Константин';
 $user_avatar = 'img/user.jpg';
-
-$page_content = renderTemplate('templates/index.php', [
-    'lots' => $lots 
-]);
 
 $layout_content = renderTemplate('templates/layout.php', [
     'title' => 'Главная',
