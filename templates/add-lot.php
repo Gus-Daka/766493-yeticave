@@ -1,16 +1,4 @@
-<main>
-  <nav class="nav">
-    <ul class="nav__list container">
-
-      <?php foreach ($categories as $cat): ?>
-        <li class="nav__item">
-          <a href="all-lots.html"><?=$cat; ?></a>
-        </li>
-      <?php endforeach; ?>
-
-    </ul>
-  </nav>
-
+<?php print_r($errors); ?>
   <?php $classname = (count($errors)) ? "form--invalid" : ""; ?>
 
   <form class="form form--add-lot container <?=$classname; ?>" action="add.php" method="POST" enctype="multipart/form-data">
@@ -33,10 +21,8 @@
         <select id="cat_name" name="lot[cat_name]">
           <option value="">Выберите категорию</option>
           <?php foreach ($categories as $cat): ?>
-            <option value="<?=$cat['id']; ?>"
-              <?php if($cat['id'] == $lot['category_id']) {
-                print('selected'); } ?> >
-            <?=$cat['lot_name']; ?>
+            <option value="<?=$cat['id']; ?>">
+            <?=$cat['cat_name']; ?>
             </option>
           <?php endforeach; ?>
         </select>
@@ -59,11 +45,13 @@
       <label>Изображение</label>
 
       <div class="preview">
+        <?php if (isset($errors['lot_image'])): ?>
         <button class="preview__remove" type="button">x</button>
+
         <div class="preview__img">
           <img src="<?=$lot['lot_image']; ?>" width="113" height="113" alt="">
         </div>
-
+      <?php endif; ?>
       </div>
       <div class="form__input-file">
         <input class="visually-hidden" type="file" name="lot_image" id="photo2">
@@ -84,13 +72,13 @@
         <span class="form__error"><?=$dict['start_price']; ?>: <?=$errors['start_price']; ?></span>
       </div>
 
-      <?php $classname = isset($errors['rate_price']) ? "form__item--invalid" : "";
-      $value = isset($lot['rate_price']) ? $lot['rate_price'] : ""; ?>
+      <?php $classname = isset($errors['step_price']) ? "form__item--invalid" : "";
+      $value = isset($lot['step_price']) ? $lot['step_price'] : ""; ?>
 
       <div class="form__item form__item--small <?=$classname; ?>">
         <label for="lot-step">Шаг ставки</label>
-        <input id="lot-step" type="number" name="lot[rate_price]" placeholder="0" value="<?=$value;?>">
-        <span class="form__error"><?=$dict['rate_price']; ?>: <?=$errors['rate_price']; ?></span>
+        <input id="lot-step" type="number" name="lot[step_price]" placeholder="0" value="<?=$value;?>">
+        <span class="form__error"><?=$dict['step_price']; ?>: <?=$errors['_price']; ?></span>
       </div>
 
       <?php $classname = isset($errors['finish_lot']) ? "form__item--invalid" : "";
@@ -105,4 +93,3 @@
     <span class="form__error form__error--bottom">Пожалуйста, исправьте ошибки в форме.</span>
     <button type="submit" class="button">Добавить лот</button>
   </form>
-</main>

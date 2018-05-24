@@ -45,14 +45,30 @@
     </div>
 </header>
 
+<main>
+    <?php if($title !== 'Главная'): ?>
+  <nav class="nav">
+    <ul class="nav__list container">
+
+      <?php foreach ($categories as $cat): ?>
+        <li class="nav__item">
+          <a href="all-lots.html"><?=$cat['cat_name']; ?></a>
+        </li>
+      <?php endforeach; ?>
+
+    </ul>
+  </nav>
+    <?php endif; ?>
 <main class="container"><?= $content; ?></main>
+
+</main>
 
 <footer class="main-footer">
     <nav class="nav">
         <ul class="nav__list container">
             <?php foreach ($categories as $cat): ?>
             <li class="nav__item">
-                <a href="all-lots.html"><?=$cat; ?></a>
+                <a href="all-lots.html"><?=$cat['cat_name']; ?></a>
             </li>
         <?php endforeach; ?>
         </ul>

@@ -9,16 +9,12 @@ if (!$link) {
 
 } else {
     
-    $category_sql = "SELECT * FROM category";
+    $category_sql = "SELECT id, cat_name FROM category";
 
     $result = mysqli_query($link, $category_sql);
-    $categories = [];
 
   if($result) { 
-    $cats = mysqli_fetch_all($result, MYSQLI_ASSOC);
-        foreach ($cats as $cat) {
-        $categories[] = $cat['cat_name'];
-    }
+    $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
   } else {
     $sql_error = mysqli_error($link);
@@ -29,28 +25,28 @@ if (!$link) {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $lot = $_POST['lot'];
         
-        $required = ['lot_name', 'cat_name', 'description', 'start_price', 'rate_price', 'finish_lot'];
+        $required = ['lot_name', 'cat_name', 'description', 'start_price', 'step_price', 'finish_lot'];
         
         $dict = [
         'lot_name' => 'Наименование',
         'cat_name' => 'Категория',
         'description' => 'Описание',
         'start_price' => 'Начальная цена',
-        'rate_price' => 'Шаг ставки',
+        'step_price' => 'Шаг ставки',
         'finish_lot' => 'Дата окончания торгов',
         'file' => 'Лот'
     ];
         $errors = [];
 
         foreach ($required as $key) {
-            if (empty($_POST[$key])) {
+            if (empty($lot[$key])) {
                 $errors[$key] = 'Необходимо заполнить поле';
             }
         }
 
-        if  (isset($_FILES['lot_img']['name'])) {
-            $tmp_name = $_FILES['lot_img']['tmp_name'];
-            $path = $_FILES['lot_img']['name'];
+        if  (isset($_FILES['lot_image']['name'])) {
+            $tmp_name = $_FILES['lot_image']['tmp_name'];
+            $path = $_FILES['lot_image']['name'];
 
             $finfo = finfo_open(FILEINFO_MIME_TYPE);
             $file_type = finfo_file($finfo, $tmp_name);
@@ -79,15 +75,15 @@ if (!$link) {
             $errors['finish_lot'] = 'Введите корректную дату';
         }
 
-        if (!ctype_digit($lot['rate_price']) || ((int)($lot['rate_price']) < 0)) {
-            $errors['rate_price'] = 'Введите целое число больше 0';
+        if (!ctype_digit($lot['step_price']) || ((int)($lot['step_price']) < 0)) {
+            $errors['step_price'] = 'Введите целое число больше 0';
         }
 
         if (count($errors)) {
             $page_content = renderTemplate('templates/add-lot.php', ['lot' => $lot, 'errors' => $errors, 'dict' => $dict, 'categories' => $categories]);
         } else {
 
-            $sql = 'INSERT INTO lots (created_at, lot_name, description, lot_image, start_price, finish_lot, rate_price, user_id, category_id)
+            $sql = 'INSERT INTO lots (created_at, lot_name, description, lot_image, start_price, finish_lot, step_price, user_id, category_id)
             VALUES (NOW(), ?, ?, ?, ?, ?, ?, 1, ?)';
 
             $stmt = db_get_prepare_stmt($link, $sql, [
@@ -96,7 +92,7 @@ if (!$link) {
                 $lot['lot_image'], 
                 $lot['start_price'],
                 $lot['finish_lot'], 
-                $lot['rate_price'], 
+                $lot['step_price'], 
                 $lot['category_id']
             ]);
 
