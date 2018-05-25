@@ -13,13 +13,9 @@ if(!$link) {
             ORDER BY id";
 
     $result = mysqli_query($link, $sql);
-    $categories = [];
 
     if($result) {
-    $cats = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    foreach ($cats as $cat) {
-        $categories[] = $cat['cat_name'];
-    }
+    $categories = mysqli_fetch_all($result, MYSQLI_ASSOC); 
 }
     $sql = "SELECT lots.id, lot_name, start_price, lot_image, rate_price, rate.lot_id, cat_name 
         FROM lots

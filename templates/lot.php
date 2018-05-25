@@ -1,15 +1,3 @@
-<main>
-  <nav class="nav">
-    <ul class="nav__list container">
-
-      <?php foreach ($categories as $cat): ?>
-        <li class="nav__item">
-          <a href="all-lots.html"><?=$cat; ?></a>
-        </li>
-      <?php endforeach; ?>
-      
-    </ul>
-  </nav>
   <section class="lot-item container">
 
   <?php foreach ($lot_info as $lot): ?>
@@ -66,4 +54,3 @@
       </div>
     </div>
   </section>
-</main>
