@@ -16,7 +16,7 @@ CREATE TABLE lots (
   description text,
   lot_image tinytext,
   start_price int(10),
-  finish_lot int(11),
+  finish_lot datetime,
   step_price int(11)
 );
 

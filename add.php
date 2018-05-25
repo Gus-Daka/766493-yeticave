@@ -18,7 +18,7 @@ if (!$link) {
 
   } else {
     $sql_error = mysqli_error($link);
-    $content = '';
+    $page_content = '';
     print('Ошибка базы данных: ' . $sql_error);
   }
     
@@ -54,7 +54,7 @@ if (!$link) {
             if ($file_type == 'image/png' || $file_type == 'image/jpeg') {
                 $filename = uniqid();
                 $lot['lot_image'] = 'img/' . $filename . '.jpg';
-                move_uploaded_file($tmp_name, 'img/' . $path);
+                move_uploaded_file($tmp_name, $lot['lot_image']);
                 $lot['path'] = $path;
             } 
             else {
@@ -83,8 +83,8 @@ if (!$link) {
             $page_content = renderTemplate('templates/add-lot.php', ['lot' => $lot, 'errors' => $errors, 'dict' => $dict, 'categories' => $categories]);
         } else {
 
-            $sql = 'INSERT INTO lots (created_at, lot_name, description, lot_image, start_price, finish_lot, step_price, user_id, category_id)
-            VALUES (NOW(), ?, ?, ?, ?, ?, ?, 1, ?)';
+            $sql = "INSERT INTO lots (created_at, lot_name, description, lot_image, start_price, finish_lot, step_price, user_id, category_id)
+            VALUES (NOW(), ?, ?, ?, ?, ?, ?, 1, ?)";
 
             $stmt = db_get_prepare_stmt($link, $sql, [
                 $lot['lot_name'], 
@@ -93,14 +93,14 @@ if (!$link) {
                 $lot['start_price'],
                 $lot['finish_lot'], 
                 $lot['step_price'], 
-                $lot['category_id']
+                $lot['cat_name']
             ]);
 
             $res = mysqli_stmt_execute($stmt);
 
             if ($res) {
                 $lot_id = mysqli_insert_id($link);
-                header("Location: lot.php?lot_id=" . $lot_id);
+                header("Location: lot.php?id=" . $lot_id);
 
             } else {
                 $sql_error = mysqli_error($link);
