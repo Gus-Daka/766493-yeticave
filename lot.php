@@ -13,13 +13,9 @@ else {
     ORDER BY id";
 
     $result = mysqli_query($link, $category_sql);
-    $categories = [];
 
   if($result) { 
-    $cats = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    foreach ($cats as $cat) {
-        $categories[] = $cat['cat_name'];
-    }
+    $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
   } else {
     $sql_error = mysqli_error($link);
