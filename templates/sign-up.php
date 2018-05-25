@@ -42,11 +42,15 @@
 
     <div class="form__item form__item--file form__item--last <?=$classname; ?>">
       <label>Аватар</label>
+
       <div class="preview">
+        <?php if (isset($errors['lot_image'])): ?>
         <button class="preview__remove" type="button">x</button>
+        
         <div class="preview__img">
-          <img src="<?=$signup['user_foto']; ?>" width="113" height="113" alt="Ваш аватар">
+          <img src="<?=$signup['user_foto']; ?>" width="113" height="113" alt="">
         </div>
+        <?php endif; ?>
       </div>
       <div class="form__input-file">
         <input class="visually-hidden" type="file" name="user_foto" id="photo2">
