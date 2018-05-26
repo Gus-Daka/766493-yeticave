@@ -1,6 +1,8 @@
 <?php
 require_once 'functions.php';
 
+session_start();
+
 $link = mysqli_connect('localhost', 'root', 'Daka242347', 'yeticave');
 
 if (!$link) {
@@ -113,11 +115,16 @@ if (!$link) {
     }
 }
 
+if (!isset($_SESSION['user'])) {
+    header('HTTP/1.1 403 Forbidden');
+    header('Status: 403 Forbidden');
+    
+    $page_content = 'Страница 403, доступ запрещен';
+}
+
 $layout_content = renderTemplate('templates/layout.php', [
     'title' => 'Добавление нового лота',
     'is_auth' => $is_auth,
-    'user_name' => $user_name,
-    'user_avatar' => $user_avatar,
     'content' => $page_content,
     'categories' => $categories
 ]);

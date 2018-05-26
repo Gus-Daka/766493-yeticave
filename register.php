@@ -1,5 +1,8 @@
 <?php
-require_once 'functions.php';
+require_once('functions.php');
+require_once('data.php');
+
+session_start();
 
 $link = mysqli_connect('localhost', 'root', 'Daka242347', 'yeticave');
 
@@ -91,8 +94,6 @@ if (!$link) {
 $layout_content = renderTemplate('templates/layout.php', [
     'title' => 'Регистрация пользователя',
     'is_auth' => $is_auth,
-    'user_name' => $user_name,
-    'user_avatar' => $user_avatar,
     'content' => $page_content,
     'categories' => $categories
 ]);
