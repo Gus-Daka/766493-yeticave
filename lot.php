@@ -1,5 +1,8 @@
 <?php 
 require_once('functions.php');
+require_once('data.php');
+
+session_start();
 
 $link = mysqli_connect('localhost', 'root', 'Daka242347', 'yeticave');
 

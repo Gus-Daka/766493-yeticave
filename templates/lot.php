@@ -13,6 +13,7 @@
       <?php endforeach; ?>
 
       <div class="lot-item__right">
+
         <div class="lot-item__state">
           <div class="lot-item__timer timer">
             <?=timeToFinish(); ?>
@@ -28,7 +29,9 @@
                 Мин. ставка <span><?=htmlspecialchars(max($lot['start_price'], $lot['max_bet']) + $lot['step_price']); ?></span>
               </div>
             </div>
-            <form class="lot-item__form" action="https://echo.htmlacademy.ru" method="post">
+
+            <?php if (isset($_SESSION['user'])): ?>
+            <form class="lot-item__form" action="https://echo.htmlacademy.ru" method="POST">
               <p class="lot-item__form-item">
                 <label for="cost">Ваша ставка</label>
                 <input id="cost" type="number" name="cost"
@@ -36,6 +39,8 @@
               </p>
               <button type="submit" class="button">Сделать ставку</button>
             </form>
+            <?php endif; ?>
+
           <?php endforeach; ?>
 
         </div>
