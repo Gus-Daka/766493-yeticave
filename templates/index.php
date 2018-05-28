@@ -42,7 +42,7 @@
                             <span class="lot__cost"><?=rurNumberFormat($lot['start_price']); ?></span>
                         </div>
                         <div class="lot__timer timer">
-                            <?=timeToFinish(); ?>
+                            <?=timeToFinish($lot['finish_lot']); ?>
                         </div>
                     </div>
                 </div>

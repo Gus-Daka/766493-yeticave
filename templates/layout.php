@@ -60,7 +60,9 @@
     </ul>
   </nav>
     <?php endif; ?>
-<main class="container"><?= $content; ?></main>
+    <main class="container">
+        <?=$content; ?>  
+    </main>
 
 </main>
 

@@ -1,35 +1,21 @@
 <?php
-require_once 'functions.php';
+require_once('functions.php');
+require_once('sqlconnect.php');
 
 session_start();
 
 $link = mysqli_connect('localhost', 'root', 'Daka242347', 'yeticave');
 
-if (!$link) {
-    $sql_error = mysqli_connect_error();
-    print('Ошибка подключения к БД: ' . $sql_error);
+get_sqllink_info($link);
 
-} else {
-    
-    $category_sql = "SELECT id, cat_name FROM category";
+$categories = get_lot_cat($link);
 
-    $result = mysqli_query($link, $category_sql);
-
-  if($result) { 
-    $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-  } else {
-    $sql_error = mysqli_error($link);
-    $page_content = '';
-    print('Ошибка базы данных: ' . $sql_error);
-  }
-    
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $lot = $_POST['lot'];
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $lot = $_POST['lot'];
         
-        $required = ['lot_name', 'cat_name', 'description', 'start_price', 'step_price', 'finish_lot'];
+    $required = ['lot_name', 'cat_name', 'description', 'start_price', 'step_price', 'finish_lot'];
         
-        $dict = [
+    $dict = [
         'lot_name' => 'Наименование',
         'cat_name' => 'Категория',
         'description' => 'Описание',
@@ -44,6 +30,15 @@ if (!$link) {
             if (empty($lot[$key])) {
                 $errors[$key] = 'Необходимо заполнить поле';
             }
+        }
+
+        $cat = mysqli_real_escape_string($link, $lot['cat_name']);
+        $cat_check = mysqli_query($link, "SELECT id FROM category WHERE id = '$cat'");
+
+        $row_cnt = mysqli_num_rows($cat_check);
+
+        if($row_cnt === 0) {
+            $errors['cat_name'] = 'Выберите категорию';
         }
 
         if  (isset($_FILES['lot_image']['name'])) {
@@ -88,6 +83,8 @@ if (!$link) {
             $sql = "INSERT INTO lots (created_at, lot_name, description, lot_image, start_price, finish_lot, step_price, user_id, category_id)
             VALUES (NOW(), ?, ?, ?, ?, ?, ?, 1, ?)";
 
+            $res = mysqli_prepare($link, $sql);
+
             $stmt = db_get_prepare_stmt($link, $sql, [
                 $lot['lot_name'], 
                 $lot['description'], 
@@ -105,15 +102,13 @@ if (!$link) {
                 header("Location: lot.php?id=" . $lot_id);
 
             } else {
-                $sql_error = mysqli_error($link);
-                $page_content = '';
-                print('Ошибка базы данных: ' . $sql_error);
+                show_sql_err($link);
             }
         }
     } else {
         $page_content = renderTemplate('templates/add-lot.php', ['categories' => $categories]);
     }
-}
+
 
 if (!isset($_SESSION['user'])) {
     header('HTTP/1.1 403 Forbidden');
@@ -124,7 +119,6 @@ if (!isset($_SESSION['user'])) {
 
 $layout_content = renderTemplate('templates/layout.php', [
     'title' => 'Добавление нового лота',
-    'is_auth' => $is_auth,
     'content' => $page_content,
     'categories' => $categories
 ]);
